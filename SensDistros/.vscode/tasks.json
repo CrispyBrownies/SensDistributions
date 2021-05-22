@@ -9,7 +9,9 @@
 				"-g",
 				"${file}",
 				"-o",
-				"${fileDirname}/${fileBasenameNoExtension}"
+				"${fileDirname}/${fileBasenameNoExtension}",
+				"-I/usr/include/python3.8", 
+				"-lpython3.8"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"
