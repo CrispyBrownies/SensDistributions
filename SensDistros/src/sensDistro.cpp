@@ -9,6 +9,7 @@
 #include <math.h>
 #include <tuple>
 #include <random>
+#include <chrono>
 #include "./matplotlibcpp.h"
 
 namespace plt = matplotlibcpp;
@@ -26,7 +27,9 @@ vector<double> GenerateNorm(int pts, tuple<double, double> bounds) { //vector<do
     cout << "mean: " << mean << endl;
     cout << "var: " << variance << endl;
 
-    default_random_engine generator;
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine generator (seed);
+
     normal_distribution<double> distribution(mean, variance);
 
     for (int i = 0; i < pts; i++) {
@@ -91,11 +94,9 @@ void Show1D() {
 
     auto pts = GenerateNorm(50000, make_tuple(0,10));
     int count1 = 0, count2 = 0, count3 = 0, count4 = 0, count5 = 0, count6 = 0, count7 = 0, count8 = 0, count9 = 0, count10 = 0;
-    
-    // cout << "count7" << count7 << endl;
 
     for (int i = 0; i < pts.size(); i++) {
-        // cout << pts[i] << endl;
+
         if (pts[i] <= 1) {
             count1++;
         } else if (pts[i] <= 2) {
@@ -118,8 +119,6 @@ void Show1D() {
             count10++;
         }
     }
-
-    // cout << "count7" << count7 << endl;
 
     vector<int> nums;
     nums.push_back(count1);
@@ -155,9 +154,37 @@ void Show1D() {
 
 }
 
+void Show2D() {
+
+    auto pts1 = GenerateNorm(10000, make_tuple(0,10));
+    auto pts2 = GenerateNorm(10000, make_tuple(0,10));
+
+    plt::scatter(pts1, pts2);
+    plt::xlabel("Parameter One");
+    plt::ylabel("Parameter Two");
+    plt::title("Normal Distribution of Two Parameter 10k/10k Points");
+    plt::show();
+
+}
+
+void Show3D() {
+
+    auto pts1 = GenerateNorm(10000, make_tuple(0,10));
+    auto pts2 = GenerateNorm(10000, make_tuple(0,10));
+    auto pts3 = GenerateNorm(10000, make_tuple(0,10));
+
+    plt::plot3(pts1, pts2, pts3, {{"marker","."},{"linewidth","0"}});
+    plt::xlabel("Parameter One");
+    plt::ylabel("Parameter Two");
+    plt::set_zlabel("Parameter Three");
+    plt::title("Normal Distribution of Three Parameter 10k/10k/10k Points");
+    plt::show();
+
+}
+
 
 int main()
 {
-    Show1D();
+    Show3D();
 }
 

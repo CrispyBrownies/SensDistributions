@@ -559,9 +559,10 @@ template <typename Numeric>
 void plot3(const std::vector<Numeric> &x,
                   const std::vector<Numeric> &y,
                   const std::vector<Numeric> &z,
-                  const std::map<std::string, std::string> &keywords =
-                      std::map<std::string, std::string>())
+                  const std::map<std::string, std::string> &keywords= std::map<std::string, std::string>())
 {
+
+    //  
   detail::_interpreter::get();
 
   // Same as with plot_surface: We lazily load the modules here the first time 
